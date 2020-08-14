@@ -1,9 +1,15 @@
 package com.bsa.springdata.project.dto;
 
 import com.bsa.springdata.project.Project;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Builder
+@Getter
+@Setter
 public class ProjectDto {
     private final UUID id;
     private final String name;

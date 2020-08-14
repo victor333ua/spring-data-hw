@@ -3,9 +3,13 @@ package com.bsa.springdata.user.dto;
 import com.bsa.springdata.office.OfficeDto;
 import com.bsa.springdata.team.dto.TeamDto;
 import com.bsa.springdata.user.User;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
+@Builder
 public class UserDto {
     private final UUID id;
     private final String firstName;

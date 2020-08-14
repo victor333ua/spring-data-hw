@@ -5,6 +5,8 @@ import com.bsa.springdata.team.TeamRepository;
 import com.bsa.springdata.user.dto.CreateUserDto;
 import com.bsa.springdata.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,21 +63,55 @@ public class UserService {
 
     public List<UserDto> findByLastName(String lastName, int page, int size) {
         // TODO: Use a single query. Use class Sort to sort users by last name. Try to avoid @Query annotation here
+
+        Pageable pageable =
+                PageRequest.of(page, size, Sort.by("lastName"));
+
+        ExampleMatcher exampleMatcher = ExampleMatcher
+                .matchingAny()
+                .withMatcher("lastName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+
+        Example<User> example = Example.of(User.builder().lastName(lastName).build(), exampleMatcher);
+
+        return userRepository
+                .findAll(example, pageable)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByCity(String city) {
         // TODO: Use a single query. Sort users by last name
+        return userRepository
+                .findAllByCity(city)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByExperience(int experience) {
         // TODO: Use a single query. Sort users by experience by descending. Try to avoid @Query annotation here
+
+        return userRepository
+                .findByExperienceGreaterThanEqualOrderByExperienceDesc(experience)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByRoomAndCity(String city, String room) {
         // TODO: Use a single query. Use class Sort to sort users by last name.
+        return userRepository
+                .findAllByRoomCity(room, city, Sort.by("lastName"))
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    public int deleteByExperience(int experience) {
+    public long deleteByExperience(int experience) {
         // TODO: Use a single query. Return a number of deleted rows
+        var resp = userRepository.deleteByExperience(experience);
+//        return resp.size();
+        return resp;
     }
 }

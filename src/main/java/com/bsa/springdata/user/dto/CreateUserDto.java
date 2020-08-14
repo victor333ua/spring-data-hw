@@ -1,7 +1,10 @@
 package com.bsa.springdata.user.dto;
 
+import lombok.Data;
+
 import java.util.UUID;
 
+@Data
 public class CreateUserDto {
     private final UUID id;
     private final String firstName;

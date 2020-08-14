@@ -28,7 +28,7 @@ values
 ('b6c3b74f-b7e6-4718-92fc-e9491ee51d0b', '.NET', 'Microsoft one love', 'https://docs.microsoft.com/');
 
 insert into teams
-(id, area, name, room, technology_id, project_id)
+(id, area, name, room, "technology_id", "project_id")
 values
 ('953f401c-7ba7-4523-805e-6fee70e2cb14', 'frontend', 'Hipsters', 'green', 'a099b732-23ba-49aa-9b94-a9541b1c18b7', '95a46088-b143-483d-a86c-3d6be6fd2e6d'),
 ('5d538bc8-0644-42de-b1eb-d8afaf47871e', 'backend', 'Geeks', 'red', 'b280ecd5-243f-4b55-ba4e-4777ef49453b', '95a46088-b143-483d-a86c-3d6be6fd2e6d'),
@@ -37,7 +37,7 @@ values
 ('99abe5fc-8a24-4d2e-91b7-af68cb67fb5e', 'desktop', 'Olds', 'orange', 'b6c3b74f-b7e6-4718-92fc-e9491ee51d0b', 'e2eceb99-7388-47bb-9f14-339f3392efbd');
 
 insert into users
-(id, experience, first_name, last_name, office_id, team_id)
+(id, experience, "first_name", "last_name", "office_id", "team_id")
 values
 ('1d14354d-586b-4f90-84dd-9d439cb36e52', 3, 'Anayah', 'Lawson', '29825547-2d2e-4108-b34e-838341964652', '953f401c-7ba7-4523-805e-6fee70e2cb14'),
 ('a9212bcd-9410-4f2c-a51e-cad095d6982b', 4, 'Avleen', 'Allman', '9f47213e-814d-483a-9a56-fd7c9438a0f4', '5d538bc8-0644-42de-b1eb-d8afaf47871e'),
@@ -60,8 +60,8 @@ values
 ('f4c58cc6-45df-4e82-b665-d255660d685f', 5, 'Amiee', 'King', '29825547-2d2e-4108-b34e-838341964652', '99abe5fc-8a24-4d2e-91b7-af68cb67fb5e'),
 ('5c546180-1652-4222-a22e-868182652aed', 4, 'Kali', 'Chan', '9f47213e-814d-483a-9a56-fd7c9438a0f4', '99abe5fc-8a24-4d2e-91b7-af68cb67fb5e');
 
-insert into user2role
-(user_id, role_id)
+insert into "user2role"
+("user_id", "role_id")
 values
 ('1d14354d-586b-4f90-84dd-9d439cb36e52', 'db127d6b-f2f3-4115-b20a-5b5f67c384aa'),
 ('a9212bcd-9410-4f2c-a51e-cad095d6982b', 'db127d6b-f2f3-4115-b20a-5b5f67c384aa'),
