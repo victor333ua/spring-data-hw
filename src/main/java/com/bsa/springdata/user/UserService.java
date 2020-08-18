@@ -80,10 +80,10 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public List<UserDto> findByCity(String city) {
+    public List<UserDto> findByCity(String city, int size, int page) {
         // TODO: Use a single query. Sort users by last name
         return userRepository
-                .findAllByCity(city)
+                .findAllByCity(city, PageRequest.of(page, size))
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());

@@ -38,7 +38,7 @@ public class UserServiceIntegrationTest {
 		var city = "Lviv";
 
 		// act
-		var users = userService.findByCity(city);
+		var users = userService.findByCity(city, 100, 0);
 
 		// assert
 		assertThat(users.size()).isEqualTo(10);

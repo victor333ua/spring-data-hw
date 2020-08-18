@@ -21,17 +21,10 @@ public class TeamService {
         // TODO: You can use several queries here. Try to keep it as simple as possible
 
 // search id for new technology
-        var newTech = technologyRepository.findByName(newTechnologyName);
-        if (newTech.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "new technology doesn't exist");
+        var newTechId = technologyRepository.findByName(newTechnologyName);
+        if (newTechId.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "new technology doesn't exist");
 
-// search for teams with old technology and number of users < devsNumber
-        var listOfTeams =  teamRepository.getTeamsWithTechnologyAndNumberUsers(devsNumber, oldTechnologyName);
-        if (listOfTeams.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "team with such parameters doesn't exist");
-
-        listOfTeams.forEach(t -> t.setTechnology(newTech.get()));
-
-        teamRepository.saveAll(listOfTeams);
-        teamRepository.flush();
+        teamRepository.updateTeamsWithTechnologyAndNumberUsers(devsNumber, oldTechnologyName, newTechId.get().getId());
     }
 
     public void normalizeName(String hipsters) {

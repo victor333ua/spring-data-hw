@@ -28,11 +28,13 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
     )
     int normalizeName(String hipsters);
 
-    @Query(value="select count(t) from Team t join t.technology tec where tec.name = :newTechnology")
+    @Query(value="select count(t) from Team t where t.technology.name = :newTechnology")
     int countByTechnologyName(String newTechnology);
 
+    @Transactional
+    @Modifying
     @Query(value =
-            "select * from teams t where t.id in " +
+            "update teams t set technology_id = ?3 where t.id in " +
                     "(select res.teamId from " +
                         "(select t.id as teamId, count(*) as numberUsers " +
                         "from " +
@@ -43,7 +45,5 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
                         ") as res " +
                     "where res.numberUsers < ?1)",
             nativeQuery = true)
-    List<Team> getTeamsWithTechnologyAndNumberUsers(int devsNumber, String oldTechnologyName);
-
-
+    void updateTeamsWithTechnologyAndNumberUsers(int devsNumber, String oldTechnologyName, UUID newTechnologyId);
 }

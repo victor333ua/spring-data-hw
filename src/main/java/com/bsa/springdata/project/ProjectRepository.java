@@ -37,9 +37,8 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
             " from project_summary as ps", nativeQuery=true)
     List<ProjectSummaryDto> projectSummary();
 
-
-
     @Query(value =
+/*
             "select count(distinct(p.id)) " +
             "from " +
                 "projects p join teams t on p.id = t.project_id " +
@@ -51,6 +50,10 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
                             "where r.name = ?1) subUsers " +
                 "on teamId = t.id",
             nativeQuery = true)
+*/
+    "select count( distinct p ) " +
+            "from " +
+                "User u join u.team t join t.project p join u.roles r " +
+            "where r.name = :role")
     int getCountWithRole(String role);
-
 }

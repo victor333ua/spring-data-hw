@@ -39,9 +39,12 @@ public class UserController {
         return userService.deleteByExperience(exp);
      }
 
-    @GetMapping("/city/{city}")
-    public List<UserDto> findByCity(@PathVariable String city) {
-        return userService.findByCity(city);
+    @GetMapping("/city")
+    public List<UserDto> findByCity(String city,
+                                      @RequestParam(defaultValue = "10") int size,
+                                      @RequestParam(defaultValue = "0")  int page) {
+
+        return userService.findByCity(city, size, page);
     }
 
     @GetMapping("/roomCity")
